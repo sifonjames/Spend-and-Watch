@@ -4,51 +4,68 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Spend Watch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3f6f4;--card:#fff;--ink:#14241c;--mute:#5d6f65;--line:#dbe4df;--ok:#1f8a5b;--warn:#d98a00;--bad:#d62839;--badbg:#fde8ea;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1713;--card:#18231d;--ink:#e8f0eb;--mute:#93a79b;--line:#2a3a32;--ok:#3ecf8e;--warn:#f0b429;--bad:#ff5c6c;--badbg:#3a181d;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0f1713;--card:#18231d;--ink:#e8f0eb;--mute:#93a79b;--line:#2a3a32;--ok:#3ecf8e;--warn:#f0b429;--bad:#ff5c6c;--badbg:#3a181d;color-scheme:dark}
+:root{--bg:#f6f1e8;--card:#fffdf9;--ink:#13251c;--mute:#6a7770;--line:#e8dfcf;--ok:#2e6b4f;--warn:#b0761a;--bad:#b3261e;--badbg:#fbebe9;--gold:#b08d57;--btn:#123524;--btnink:#f6ecd6;--shadow:0 10px 30px rgba(19,37,28,.08);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1410;--card:#121e18;--ink:#efe8d8;--mute:#9aa89f;--line:#24342b;--ok:#62c291;--warn:#e3ad3f;--bad:#ff6f64;--badbg:#2e1815;--gold:#d6b57c;--btn:#d6b57c;--btnink:#10190f;--shadow:0 10px 30px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1410;--card:#121e18;--ink:#efe8d8;--mute:#9aa89f;--line:#24342b;--ok:#62c291;--warn:#e3ad3f;--bad:#ff6f64;--badbg:#2e1815;--gold:#d6b57c;--btn:#d6b57c;--btnink:#10190f;--shadow:0 10px 30px rgba(0,0,0,.35);color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;line-height:1.4}
-main{max-width:560px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:1.6rem;margin:0 0 4px}
-.sub{color:var(--mute);margin:0 0 18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
-.total{font-size:1.7rem;font-weight:700;line-height:2.6rem;transition:color .3s}
-.bigin{font-size:1.4rem;font-weight:700}
-.bar{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 6px}
-.fill{height:100%;width:0;background:var(--ok);transition:width .4s,background .3s}
+body{margin:0;color:var(--ink);font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;line-height:1.45;background:radial-gradient(900px 420px at 50% -160px,rgba(176,141,87,.22),transparent),var(--bg)}
+main{max-width:560px;margin:0 auto;padding:26px 16px 48px}
+.eyebrow{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:6px 0 4px}
+h1{font-family:"Cormorant Garamond",Georgia,"Times New Roman",serif;font-size:2.7rem;font-weight:600;letter-spacing:.01em;line-height:1.05;margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.card>b{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.3rem;font-weight:700}
+.total{font-family:"Cormorant Garamond",Georgia,serif;font-size:2rem;font-weight:700;line-height:2.6rem;transition:color .3s}
+.bigin{font-size:1.3rem;font-weight:700}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:12px 0 8px}
+.fill{height:100%;width:0;background:var(--ok);border-radius:99px;transition:width .4s,background .3s}
 .state{font-weight:600}
-.alert{display:none;background:var(--badbg);color:var(--bad);border:1px solid var(--bad);border-radius:10px;padding:10px 12px;margin-top:10px;font-weight:600}
+.alert{display:none;background:var(--badbg);color:var(--bad);border:1px solid var(--bad);border-radius:14px;padding:12px 14px;margin-top:12px;font-weight:600}
 .alert.on{display:block}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-label{display:block;font-size:.85rem;color:var(--mute);margin-bottom:4px}
-input,select,button{font:inherit;width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
-button{background:var(--ink);color:var(--bg);border:0;font-weight:700;cursor:pointer}
-button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--warn);outline-offset:1px}
-.add{margin-top:10px}
-.item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);margin-bottom:8px;border-left:6px solid var(--ok)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:6px;font-weight:600}
+input,select,button{font:inherit;width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+button{background:var(--btn);color:var(--btnink);border:0;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:15px;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.add{margin-top:14px}
+.item{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;border:1px solid var(--line);margin-bottom:10px;border-left:5px solid var(--ok);background:var(--card)}
 .item .n{flex:1;min-width:0}
 .item .n b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .item .n span{font-size:.8rem;color:var(--mute)}
 .item.big{background:var(--badbg);border-color:var(--bad);border-left-color:var(--bad)}
 .item.big .amt{color:var(--bad)}
 .amt{font-weight:700}
-.del{width:auto;padding:6px 10px;background:transparent;color:var(--mute);border:1px solid var(--line)}
-.plan{border-radius:10px;padding:12px;margin-top:10px;font-weight:600;border:2px solid var(--line);min-height:48px}
-.plan.ok{border-color:var(--ok);color:var(--ok)}.plan.warn{border-color:var(--warn);color:var(--warn)}.plan.bad{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.del{width:auto;padding:6px 11px;background:transparent;color:var(--mute);border:1px solid var(--line);text-transform:none;letter-spacing:0;font-size:1rem}
 .empty{color:var(--mute);text-align:center;padding:14px}
-.top{display:flex;justify-content:space-between;align-items:center}
-.chartwrap{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.donut{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;flex:none}.hole{width:92px;height:92px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-weight:700;font-size:.8rem;text-align:center;padding:4px}.legend{flex:1;min-width:170px}.lg{display:flex;align-items:center;gap:8px;padding:4px 0}.lg i{width:12px;height:12px;border-radius:50%;flex:none}.lg span{flex:1}.lg em{font-style:normal;color:var(--mute);width:42px;text-align:right}
-.link{width:auto;background:transparent;color:var(--mute);border:0;padding:4px;font-weight:400;text-decoration:underline}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.plan{border-radius:14px;padding:14px;margin-top:12px;font-weight:600;border:2px solid var(--line);min-height:52px}
+.plan.ok{border-color:var(--ok);color:var(--ok)}.plan.warn{border-color:var(--warn);color:var(--warn)}.plan.bad{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.chartwrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.donut{width:158px;height:158px;border-radius:50%;display:grid;place-items:center;flex:none}.hole{width:100px;height:100px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:1rem;text-align:center;padding:4px}.legend{flex:1;min-width:170px}.lg{display:flex;align-items:center;gap:8px;padding:5px 0}.lg i{width:12px;height:12px;border-radius:50%;flex:none}.lg span{flex:1}.lg em{font-style:normal;color:var(--mute);width:42px;text-align:right}
+.link{width:auto;background:transparent;color:var(--mute);border:0;padding:4px;font-weight:400;text-decoration:underline;text-transform:none;letter-spacing:0;font-size:.85rem}
+
+.mark{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.6rem;font-weight:700;color:#f6ecd6;background:linear-gradient(145deg,#0f3d2b,#1b3a2c);border:2px solid var(--gold);box-shadow:0 6px 18px rgba(19,37,28,.25);margin-bottom:10px}
+.hero{position:relative;overflow:hidden;color:#f6ecd6;border:1px solid rgba(214,181,124,.55);background:linear-gradient(145deg,#0f3d2b 0%,#10261c 62%,#1b3a2c 100%);box-shadow:0 18px 40px rgba(15,61,43,.35);--ok:#7be0ae;--warn:#f2c35a;--bad:#ff8f84;--mute:rgba(246,236,214,.7);--line:rgba(246,236,214,.18)}
+.hero::after{content:"";position:absolute;right:-70px;top:-70px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(214,181,124,.45);box-shadow:0 0 0 22px rgba(214,181,124,.07),0 0 0 48px rgba(214,181,124,.04);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero input,.hero select{background:rgba(255,255,255,.08);color:#f6ecd6;border:1px solid rgba(246,236,214,.25)}
+.hero select option{color:#13251c}
+.hero .bar{background:rgba(255,255,255,.15)}
+.hero .alert{background:rgba(255,143,132,.14);border-color:var(--bad)}
+.ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);font-size:1.15rem;flex:none}
+.card:not(.hero){border-top:3px solid var(--gold)}
+textarea{font:inherit;width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
 </style>
 </head>
 <body>
 <main>
+  <div class="mark">S</div>
+  <div class="eyebrow">Ethical money · Mindful spending</div>
   <h1>Spend Watch</h1>
-  <p class="sub">Log what you spend. Go over your daily limit and it turns red.</p>
+  <p class="sub">Spend with intention. Check before you buy, and stay within your limits.</p>
 
-  <section class="card" aria-live="polite">
+  <section class="card hero" aria-live="polite">
     <div class="top"><span class="sub" style="margin:0">This month</span>
       <select id="cur" aria-label="Currency" style="width:auto"><option>₦</option><option>$</option><option>£</option><option>€</option></select></div>
     <div class="row2" style="margin-top:10px">
@@ -101,6 +118,13 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
     <div class="top" style="margin-bottom:8px"><b>Expenses</b><select id="view" aria-label="Choose month" style="width:auto"></select><button class="link" id="clear">Clear all</button></div>
     <div id="list"></div>
   </section>
+  <section class="card">
+    <b>Backup</b>
+    <p class="sub" style="margin:6px 0 12px">Your records live only in this browser. Copy a backup and keep it safe, for example in Notes or in a WhatsApp chat with yourself.</p>
+    <textarea id="bk" rows="7" placeholder="Paste a backup here to restore it"></textarea>
+    <div class="row2" style="margin-top:10px"><button id="bkCopy">Copy backup</button><button id="bkRestore">Restore</button></div>
+    <div class="state" id="bkMsg" style="margin-top:8px"></div>
+  </section>
 </main>
 <script>
 (function(){
@@ -144,7 +168,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
     var sorted=shown.slice().sort(function(a,b){return b.date.localeCompare(a.date)||b.id-a.id});
     $("list").innerHTML=sorted.length?sorted.map(function(i){
       var big=S.daily>0&&(dayTot[i.date]||0)>S.daily;
-      return '<div class="item'+(big?' big':'')+'"><div class="n"><b>'+esc(i.name)+'</b><span>'+esc(i.cat)+' · '+i.date+(big?' · over daily limit':'')+'</span></div><div class="amt">'+fmt(i.amount)+'</div><button class="del" data-id="'+i.id+'" aria-label="Delete '+esc(i.name)+'">✕</button></div>';
+      return '<div class="item'+(big?' big':'')+'"><span class="ic">'+({Food:"🍽️",Transport:"🚕",Bills:"💡",Shopping:"🛍️",Health:"💊",Other:"✨"}[i.cat]||"✨")+'</span><div class="n"><b>'+esc(i.name)+'</b><span>'+esc(i.cat)+' · '+i.date+(big?' · over daily limit':'')+'</span></div><div class="amt">'+fmt(i.amount)+'</div><button class="del" data-id="'+i.id+'" aria-label="Delete '+esc(i.name)+'">✕</button></div>';
     }).join(""):'<div class="empty">No expenses yet. Add your first one above.</div>';
     check();
     save();
@@ -184,6 +208,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   $("addBtn").onclick=function(){
     var amt=+$("amount").value, nm=$("name").value.trim();
     if(!nm||!(amt>0)){$("name").focus();return}
+    try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:"expense-added",title:"Expense added",event:true})}catch(e){}
     S.items.push({id:Date.now(),name:nm,amount:amt,cat:$("cat").value,date:$("date").value||today()});
     $("name").value="";$("amount").value="";$("name").focus();render();
     var ad=S.items[S.items.length-1].date, at=S.items.filter(function(i){return i.date===ad}).reduce(function(a,i){return a+i.amount},0);
@@ -193,8 +218,19 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
   $("clear").onclick=function(){if(S.items.length&&confirm("Delete ALL saved records? This can’t be undone.")){S.items=[];render()}};
   ["budget","daily","cur"].forEach(function(id){$(id).addEventListener("input",render)});
   document.addEventListener("keydown",function(e){if(e.key==="Enter"&&(e.target.id==="name"||e.target.id==="amount"))$("addBtn").click()});
+  $("bkCopy").onclick=function(){var tot=S.items.reduce(function(x,i){return x+i.amount},0);var t="SPEND WATCH BACKUP\nBudget: "+fmt(S.budget)+" | Daily limit: "+fmt(S.daily)+"\nExpenses saved: "+S.items.length+" (total "+fmt(tot)+")\n\nKeep this whole text. To restore, paste all of it back here.\n"+JSON.stringify({app:"spendwatch",v:1,data:S});$("bk").value=t;
+    var done=function(){$("bkMsg").textContent="Backup copied. Save it somewhere safe.";$("bkMsg").style.color="var(--ok)"};
+    var fail=function(){$("bk").focus();$("bk").select();$("bkMsg").textContent="Copy the text in the box and save it somewhere safe.";$("bkMsg").style.color="var(--warn)"};
+    try{navigator.clipboard.writeText(t).then(done,fail)}catch(e){fail()}};
+  $("bkRestore").onclick=function(){try{var raw=$("bk").value,k=raw.indexOf("{");var o=JSON.parse(raw.slice(k).trim());var d=o&&o.app==="spendwatch"?o.data:null;if(!d||!Array.isArray(d.items))throw 0;if(!confirm("Replace what is on this device with this backup?"))return;
+    S=Object.assign({items:[],budget:100000,daily:0,cur:"\u20a6"},d);$("budget").value=S.budget;$("daily").value=S.daily;$("cur").value=S.cur;$("bk").value="";render();$("bkMsg").textContent="Backup restored.";$("bkMsg").style.color="var(--ok)"}
+    catch(e){$("bkMsg").textContent="That backup could not be read. Paste the full text you copied.";$("bkMsg").style.color="var(--bad)"}};
   render();
 })();
+</script>
+<script>
+/* Visitor counter (GoatCounter) */
+(function(){var GC="spenditwise";if(!GC)return;var s=document.createElement("script");s.async=true;s.src="//gc.zgo.at/count.js";s.setAttribute("data-goatcounter","https://"+GC+".goatcounter.com/count");document.head.appendChild(s)})();
 </script>
 </body>
 </html>
